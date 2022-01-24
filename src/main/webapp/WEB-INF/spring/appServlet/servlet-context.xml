@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:beans="http://www.springframework.org/schema/beans"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+   xmlns:websocket="http://www.springframework.org/schema/websocket"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xmlns:aop="http://www.springframework.org/schema/aop"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+      http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+      http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+      http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- <annotation-driven /> -->
+	
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- <resources mapping="/resources/**" location="/resources/" /> -->
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- ** Interface 를 이용한 Mapper 접근 
+	=> DAO, sqlSession , mappers 팩키지 사용하지 않으므로 아래 base-package 에서 util 제외하고
+	   sqlSession , mappers 팩키지 관련설정 삭제
+	=> <mybatis-spring:scan ...> 추가함
+	   dao 필요없이 interface ~Mapper.java 사용해서 경로 맞춰주는 설정
+	 -->
+	<context:component-scan base-package="com.ncs.green, service, util" />
+	<mybatis-spring:scan base-package="mapperInterface"/>
+	
+	<!-- Mybatis 설정 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		=> DAO 에서의 sql 구문을 xml 로 처리
+		=> JDBC Connection, Mybatis 설정 : Sql 구문 등..  	-->
+		
+	<!-- 1) JDBC Connection 
+	** MySql
+	  <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <beans:property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+      <beans:property name="url" value="jdbc:mysql://127.0.0.1:3306/mydb?useSSL=false&amp;serverTimezone=UTC" />
+      <beans:property name="username" value="root" />
+      <beans:property name="password" value="shinjuryeon" />
+	</beans:bean>
+	
+	** Oracle -->
+   <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+      <beans:property name="url" value="jdbc:oracle:thin:@127.0.0.1:8282:xe"/>
+      <beans:property name="username" value="system"/>
+      <beans:property name="password" value="oracle"/>
+   </beans:bean>
+	
+	<!-- 2) Mybatis 설정 
+		=> SqlSessionFactory -> SqlSessionTemplate 
+		2.1) SqlSessionFactory
+			- MyBatis 와 연동시 DB 연결과 SQL 실행의 핵심 클래스
+			- SqlSessionFactoryBean 에 의해 생성됨  -->
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+		<beans:property name="dataSource" ref="dataSource" />
+		<!--
+		<beans:property name="configLocation" value="classpath:/mybatis-config.xml" />
+		 MyBatis 설정 파일의 위치를 지정
+		  : 스프링 동작시 같이 동작 하도록, 그러나 스프링에서는 필요없음 (없어도됨)  
+		<beans:property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml" />
+		-->
+		<!-- SQL을 작성 해놓은 xml 파일 (mapper) 의 위치를 지정합니다. 
+			=>  mappers 폴더내의 모든 폴더의 *Mapper.xml 을 인식하도록 해줌 
+			=>  ** : 없는거 포함 모든 폴더 
+	     		*  : 모든 문자  --> 
+	</beans:bean>		
+			
+	<!-- 2.2) SqlSessionTemplate
+			- SqlSession (interface) 구현클래스
+			- DAO 의 DB연결 & Close 기능, 
+			- Mapper의 Sql 구문을 이용해 DAO의 요청을 처리
+			- sqlSessionFactory 를 생성자로 주입해서 설정
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</beans:bean> -->				
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		 ** Image Upload & Download
+		 1) Upload : MultipartResolver 설정 -->
+	<beans:bean id="multipartResolver" 
+			class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="-1" />
+	</beans:bean>
+	<!-- 
+		=> id , name 변경 불가능 
+			: 대부분의 Resolver로 끝나는 클래스의 경우에는 이미 정해져있기 때문에 변경불가능.
+		=> maxUploadSize 는 지정하지 않으면 default 값은 -1 이며 크기 무제한이 됨. 
+		   다양하게 변경하며 Test 
+	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ** JsonView   -->
+    <beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView" /> 
+    <beans:bean id="viewResolver" 
+          class="org.springframework.web.servlet.view.BeanNameViewResolver">
+       <beans:property name="order" value="1" />
+    </beans:bean>
+    
+    <!-- ** Image DownLoad 
+        => 다운로드를 처리할 ViewResolver 클래스 등록  ( Java Code 작성 )
+        => id="download" 와  컨트롤러의 매핑메서드에서 리턴된 view name 과 같아야 한다.    -->
+   <beans:bean id="download" class="downTest.DownloadView"/>
+	
+	<!-- 
+    ** BeanNameViewResolver
+    => id 에 해당하는 Bean이 View 를 처리하도록 해주는 ViewResolver 
+       컨트롤러에서  mv.setViewName("download") 하게되면  
+       일반적인 경우 InternalResourceViewResolver 에 의해  views/download.jsp 를 찾음,
+       그러나  jsp 가 아닌 형태의  response 를 처리하는 경우에는 한 이 경우에는 "download" 와
+       동일한  id 로 생성된 Bean 을 찾아 response 를 처리함
+    => 그래서   ViewResolver 들 간의 우선순위가 팔요함 ( 아래  property order 참고 ) 
+    => 사용예 : "jsonView" , ImageDownLoad 의 "download" 
+ 
+    ** property order 
+     => 두개이상 존재하는 viewResolver 를 위해서 우선순위를 매기는 것.
+             우선순위를 명시 하지 않으면 "가장 낮은 우선순위를 갖게 된다."
+             우선순위는 "0"이 가장 먼저 실행되고, 이후로 매겨지는 순서에 따라 실행된다.
+     => 그  다음 viewResolver가 실행 기준은 "null" 이 반환되느냐 가 기준이다. 
+             그래서 null 값이 있을수 없는 InternalResourceViewResolver 가 우선순위가 높게 되면,
+             다른 viewResolver는 사용되지 않기 때문에 (항상 뷰 이름에 매핑되는 뷰 객체를 리턴하기 때문)
+       InternalResourceViewResolver 은 우선순위가 가장 낮아야 한다. 
+    -->  
+</beans:beans>

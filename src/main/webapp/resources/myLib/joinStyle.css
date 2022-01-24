@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+* {margin: 0; padding: 0; border: 0;}
+body {background-color: whitesmoke;}
+
+#container { width: 600px;   margin: 0 auto;}
+#logo { font-size: 70px; color: limegreen; text-align: center;
+	margin-top: 35px; margin-bottom: 70px;  
+	}
+
+div div{
+	margin:25px auto; align-content: center; 
+}
+
+.contentName {font-size: 22px; margin-left: 3px; }
+
+input {width: 600px; height: 50px; border: 2px solid lightgray; font-size: 15px}
+
+.select { width: 600px; height: 50px; ; font-size: 15px; border: 2px solid lightgray;}
+
+.tech {height: 110px;}
+
+.birth {width: 190px; height: 50px; border: 2px solid lightgray; }
+
+select {box-sizing: content-box;}
+
+input:focus,select:focus { outline-color: limegreen; border-color: limegreen;}
+
+input[type="submit"] { color: white; background-color: limegreen; margin-bottom: 50px; }
+
+input[type="submit"]:hover {cursor: pointer; }

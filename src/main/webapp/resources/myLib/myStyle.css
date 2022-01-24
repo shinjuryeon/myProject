@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+a {color:gray; text-decoration:none; font-weight:bold;}
+/*  a Tag 에 마우스가 닿으면 글씨 blue, 클릭하면 글씨 green */
+a:hover {color:DimGray; font-size: 1.2em;}
+a:active {color:green;}
+
+.eMessage {	color:red;
+			font-size:x-small;
+			font-style:italic;
+			}
+/*  Check  List searchBar */
+#searchBar {
+	color:DimGray ; font-family:돋움; font-size:16px;
+	float: left;
+			}	
+.textLink {
+	color:blue; font-weight:bold;
+			}
+	
+/* Ajax_jsonView BoardList Test3. */
+.content {
+	color:gray;
+}
+#content {
+	display:none; width:300px; height:70px;
+	background:snow; z-index:100;
+	position:absolute;
+}
