@@ -132,7 +132,7 @@ function inCheck() {
 		</div>
 		<div>
 			<span class="contentName"><b>비밀번호</b></span><br>
-			<input type="password" id="com_password" name="com_password user_password" placeholder=" 영/숫자만 입력 가능" size="20"><br>
+			<input type="password" id="com_password" name="com_password" placeholder=" 영/숫자만 입력 가능" size="20"><br>
 	      	<span id="pMessage" class="eMessage"></span>
 		</div>
 <!-- 		<div>

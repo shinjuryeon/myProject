@@ -48,7 +48,7 @@
     	color: #ffffff;
     	outline: none;
     	float: right;
-    	background-color: #262626;
+    	background-color: #222222;
     }
     .outer {
 		border: 6px solid royalblue;
@@ -80,6 +80,13 @@
 		list-style: none;
 		font-size: 14px;
 	    line-height: 23px;
+	}
+	li>a {
+		text-decoration-line: none;
+		color: #222222;
+	}
+	li:hover {
+		font-size: 15px;
 	}
 /* 	캐러셀 카테고리 글씨스타일
 	div li {

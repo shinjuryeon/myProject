@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import service.UserService;
-import vo.CategoryVO;
 import vo.User_infoVO;
 
 @Controller
@@ -80,19 +80,15 @@ public class UserController {
 		if (vo != null) {
 			// id 일치 -> password 확인
 			if (vo.getUser_password().equals(password)) {
-			
-//			// BCryptPasswordEncoder 적용
-//	        // => passwordEncoder.matches(rawData, digest) -> (입력값, DB에보관된값_digest)
-//			if (passwordEncoder.matches(password, vo.getPassword())) {
-//				// Login 성공 -> login 정보를 Session에 보관 -> home
+				// Login 성공 -> login 정보를 Session에 보관 -> home
 				request.getSession().setAttribute("loginID", id);
 				request.getSession().setAttribute("loginName", vo.getUser_name());
-//				
-//				// BCryptPasswordEncoder 로 암호화 되면 복호화가 불가능함.
-//	            // => password 수정을 별도로 처리해야 함.
-//	            // => 그러나 기존의 update Code 를 활용하여 updateForm.jsp 에서 수정을 위해
-//	            //    User가 입력한 raw_password 를 보관함.
-//				// => 이 session에 보관한 값은 detail 에서 "Update" 요청시 사용함
+				
+				// BCryptPasswordEncoder 로 암호화 되면 복호화가 불가능함.
+	            // => password 수정을 별도로 처리해야 함.
+	            // => 그러나 기존의 update Code 를 활용하여 updateForm.jsp 에서 수정을 위해
+	            //    User가 입력한 raw_password 를 보관함.
+				// => 이 session에 보관한 값은 detail 에서 "Update" 요청시 사용함
 				request.getSession().setAttribute("loginPW", password);				
 				
 				uri = "redirect:home";			
@@ -123,33 +119,25 @@ public class UserController {
 		return mv;
 	} //userlist
 	
-	@RequestMapping(value="/userdelete")
-	public ModelAndView userdelete(ModelAndView mv, User_infoVO vo, RedirectAttributes rttr) {
-		
-		String uri = "redirect:userlist";
-		
-		if (service.delete(vo) > 0) {
-			// delete 성공
-			rttr.addFlashAttribute("message", "** 삭제되었습니다 **");
-		} else {
-			// 실패
-			rttr.addFlashAttribute("message", "** 삭제 실패했습니다 **");
-		}
-		
-		mv.setViewName(uri);
-		return mv;
-	} //userdelete
-	
 	@RequestMapping(value="/userdetail")
 	public ModelAndView userdetail(HttpServletRequest request, ModelAndView mv, User_infoVO vo) {
 		
+		HttpSession session = request.getSession(false);
+		if (vo.getUser_id() == null || vo.getUser_id().length()<1) {
+			if (session != null && session.getAttribute("loginID") != null) {
+				vo.setUser_id((String)session.getAttribute("loginID"));
+			}
+		}
+		
 		String uri = "user/user_detail";
 		
-		vo.setUser_id(request.getParameter("user_id"));
 		vo = service.selectOne(vo);
 		
 		if (vo != null) {
 			mv.addObject("apple", vo);
+			if ("U".equals(request.getParameter("jcode"))) {
+				uri = "user/user_updateForm";
+			}
 		} else {
 			mv.addObject("message", "** 출력할 자료가 없습니다 **");
 		}
@@ -158,4 +146,60 @@ public class UserController {
 		return mv;
 	} //userdetail
 	
+	@RequestMapping(value="/userupdate")
+	public ModelAndView userupdate(HttpServletRequest request, ModelAndView mv, User_infoVO vo, RedirectAttributes rttr) {
+		
+		String uri = "redirect:userdetail?user_id="+vo.getUser_id();
+		
+		if (service.update(vo) > 0) {
+			// update 성공
+			rttr.addFlashAttribute("message", "** 수정에 성공했습니다 **");
+			request.getSession().setAttribute("loginName", vo.getUser_name());
+		} else {
+			// 실패
+			rttr.addFlashAttribute("message", "** 수정에 실패했습니다 **");
+			uri = "redirect:userupdate?user_id="+vo.getUser_id();
+		}
+		
+		mv.setViewName(uri);
+		return mv;
+	} //userupdate
+	
+	@RequestMapping(value="/userdelete")
+	public ModelAndView userdelete(HttpServletRequest request, ModelAndView mv, User_infoVO vo, RedirectAttributes rttr) {
+		
+		String uri = "home";
+		String id = null;	
+
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("loginID") != null) { 
+			id = (String)session.getAttribute("loginID");
+		
+			if (!id.equals("admin")) {
+				vo.setUser_id(id);
+			}
+			if (service.delete(vo) > 0) {
+				// 삭제 성공 -> message, home, session 무효화
+				if (!id.equals("admin")) {
+					mv.addObject("message", "** 회원 탈퇴 되었습니다 **");
+					session.invalidate();
+				} else {
+					uri = "redirect:userlist"; // 관리자 작업인 경우
+					rttr.addFlashAttribute("message", "** 삭제 되었습니다 **");
+				}
+			} else { 
+				// 삭제 오류
+				rttr.addFlashAttribute("message", "** 회원 탈퇴 실패했습니다 **");
+				uri = "redirect:userdetail";
+			}
+		} else { // session == null -> loginForm.jsp
+			mv.addObject("message", "** 탈퇴 불가능 : 로그인 정보가 없습니다. 로그인 후 회원탈퇴가 가능합니다 **");
+			uri = "user/user_loginForm";
+		}
+		
+		mv.setViewName(uri);
+		return mv;
+	} //userdelete
+	
+
 }
