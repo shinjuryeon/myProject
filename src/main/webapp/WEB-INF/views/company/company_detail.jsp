@@ -46,7 +46,7 @@
 	} //inCheck
 </script>
 <body>
-<h3>** <span style="font-size: 25px;">${apple.user_name}</span>님의 정보 **</h3>
+<h3>** <span style="font-size: 25px;">${apple.com_name}</span>님의 정보 **</h3>
 <br>
 <c:if test="${not empty message}">
 => ${message}<br>
@@ -54,28 +54,22 @@
 <hr>
 <table>
 	<tr>
-		<th>아이디</th><td>${apple.user_id}</td>
+		<th>아이디</th><td>${apple.com_id}</td>
 	</tr>
 	<tr>
-		<th>비밀번호</th><td>${apple.user_password}</td>
+		<th>비밀번호</th><td>${apple.com_password}</td>
 	</tr>
 	<tr>
-		<th>이름</th><td>${apple.user_name}</td>
+		<th>회사명</th><td>${apple.com_name}</td>
 	</tr>
 	<tr>
-		<th>우편주소</th><td>${apple.address1}</td>
-	</tr>
-	<tr>
-		<th>도로명주소</th><td>${apple.address2}</td>
-	</tr>
-	<tr>
-		<th>상세주소</th><td>${apple.address3}</td>
+		<th>사업자등록번호</th><td>${apple.com_num}</td>
 	</tr>
 </table>
 <hr>
 <a id="a" href="home">[HOME]</a>&nbsp;&nbsp;
-<a id="a" href="userdetail?jcode=U&user_id=${apple.user_id}">[정보수정]</a>&nbsp;&nbsp;
-<a href="userdelete?user_id=${apple.user_id}" onclick="return inCheck()" id="a">[회원탈퇴]</a>&nbsp;&nbsp;
+<a id="a" href="comdetail?jcode=U&com_id=${apple.com_id}">[정보수정]</a>&nbsp;&nbsp;
+<a href="comdelete?com_id=${apple.com_id}" onclick="return inCheck()" id="a">[회원탈퇴]</a>&nbsp;&nbsp;
 <a id="a" href='javascript:history.go(-1)'>[뒤로가기]</a>
 </body>
 </html>

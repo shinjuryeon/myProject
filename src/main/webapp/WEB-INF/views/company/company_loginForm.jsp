@@ -13,6 +13,7 @@
    body {
       background: #E8B759;
       font-family: 맑은고딕;
+      display: flex; flex-direction: column; align-items: center;
       }
    #wrap {
       margin-left: 0;
@@ -21,10 +22,13 @@
    h2 {
       color: #00008B; 
       }
+   hr {
+      width:90%; height:3px; border:none; background-color:orange;
+   }
 </style>
-<body style="display: flex; flex-direction: column; align-items: center;">
+<body>
 <h2>LOGIN</h2>
-<hr style="width:90%;height:3px;border:none;background-color:orange;">
+<hr>
 <form action="comlogin" method="post">
 	<table>
 		<tr>

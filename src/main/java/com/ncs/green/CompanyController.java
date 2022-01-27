@@ -72,7 +72,6 @@ public class CompanyController {
 	
 	@RequestMapping(value="/comlogin")
 	public ModelAndView comlogin(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, Company_infoVO vo) throws ServletException, IOException {
-		String id = vo.getCom_id();
 		String password = vo.getCom_password();
 		String uri = "company/company_loginForm";
 		
@@ -82,7 +81,7 @@ public class CompanyController {
 			if (vo.getCom_password().equals(password)) {
 			
 				// Login 성공 -> login 정보를 Session에 보관 -> home
-				request.getSession().setAttribute("logincID", id);
+				request.getSession().setAttribute("logincID", vo.getCom_id());
 				request.getSession().setAttribute("loginName", vo.getCom_name());
 				
 				// BCryptPasswordEncoder 로 암호화 되면 복호화가 불가능함.
@@ -125,8 +124,8 @@ public class CompanyController {
 		
 		HttpSession session = request.getSession(false);
 		if (vo.getCom_id() == null || vo.getCom_id().length()<1) {
-			if (session != null && session.getAttribute("loginID") != null) {
-				vo.setCom_id((String)session.getAttribute("loginID"));
+			if (session != null && session.getAttribute("logincID") != null) {
+				vo.setCom_id((String)session.getAttribute("logincID"));
 			}
 		}
 		
@@ -171,12 +170,12 @@ public class CompanyController {
 	@RequestMapping(value="/comdelete")
 	public ModelAndView comdelete(HttpServletRequest request, ModelAndView mv, Company_infoVO vo, RedirectAttributes rttr) {
 		
-		String uri = "home";
+		String uri = "redirect:home";
 		String id = null;	
 
 		HttpSession session = request.getSession(false);
-		if (session != null && session.getAttribute("loginID") != null) { 
-			id = (String)session.getAttribute("loginID");
+		if (session != null && session.getAttribute("logincID") != null) { 
+			id = (String)session.getAttribute("logincID");
 		
 			if (!id.equals("admin")) {
 				vo.setCom_id(id);
@@ -184,7 +183,7 @@ public class CompanyController {
 			if (service.delete(vo) > 0) {
 				// 삭제 성공 -> message, home, session 무효화
 				if (!id.equals("admin")) {
-					mv.addObject("message", "** 회원 탈퇴 되었습니다 **");
+					rttr.addFlashAttribute("message", "** 회원 탈퇴 되었습니다 **");
 					session.invalidate();
 				} else {
 					uri = "redirect:comlist"; // 관리자 작업인 경우

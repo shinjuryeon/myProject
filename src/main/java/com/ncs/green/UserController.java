@@ -168,7 +168,7 @@ public class UserController {
 	@RequestMapping(value="/userdelete")
 	public ModelAndView userdelete(HttpServletRequest request, ModelAndView mv, User_infoVO vo, RedirectAttributes rttr) {
 		
-		String uri = "home";
+		String uri = "redirect:home";
 		String id = null;	
 
 		HttpSession session = request.getSession(false);
@@ -181,7 +181,7 @@ public class UserController {
 			if (service.delete(vo) > 0) {
 				// 삭제 성공 -> message, home, session 무효화
 				if (!id.equals("admin")) {
-					mv.addObject("message", "** 회원 탈퇴 되었습니다 **");
+					rttr.addFlashAttribute("message", "** 회원 탈퇴 되었습니다 **");
 					session.invalidate();
 				} else {
 					uri = "redirect:userlist"; // 관리자 작업인 경우

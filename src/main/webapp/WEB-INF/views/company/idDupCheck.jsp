@@ -13,7 +13,6 @@
 	function idOK() {
 		opener.$('#com_id').val('${newID}');
 		
-		opener.document.getElementById('idDup').disabled = 'disabled';
 		opener.document.getElementById('submit').disabled = '';
 		
 		opener.$('#com_id').prop('readonly', true);

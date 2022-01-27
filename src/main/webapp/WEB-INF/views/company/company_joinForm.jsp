@@ -60,7 +60,7 @@ function inCheck() {
 	// => 없으면 submit : return true
 	//    있다면 submit 취소 : return false
 	if (iCheck && pCheck && nCheck && cCheck) {
-		if (confirm("정말 가입 하십니까 ? (Yes:확인 / No:취소)")==false) {
+		if (confirm("정말 가입 하십니까?")==false) {
 			alert('회원가입이 취소되었습니다');
 		 	return false;
 		}else {
@@ -88,26 +88,24 @@ function inCheck() {
 	
 	#container { width: 600px;   margin: 0 auto;}
 	
-	div div {
-		margin:25px auto; align-content: center; 
-	}
+	div div { margin:25px auto; align-content: center;}
 	
 	form div {margin: 10px;}
 	
 	.contentName {font-size: 22px; margin-left: 3px; }
 	
-	input {width: 600px; height: 50px; border: 2px solid lightgray; font-size: 15px}
+	#find {width: 100px; height:50px;}
 	
-	.select { width: 600px; height: 50px; ; font-size: 15px; border: 2px solid lightgray;}
+	input {width: 400px; height: 50px; border: 2px solid lightgray; font-size: 16px}
+		
+	input:focus { outline-color: limegreen; border-color: limegreen;}
 	
-	input:focus,select:focus { outline-color: limegreen; border-color: limegreen;}
+	input[type="submit"] { color: white; background-color: limegreen; margin-left: 25px; margin-bottom: 50px; width: 180px;}
 	
-	input[type="submit"] { color: white; background-color: limegreen; margin-bottom: 50px; width: 250px;}
-	
-	input[type="reset"] { width:250px; }
+	input[type="reset"] { width:180px; }
 	
 	input[type="submit"]:hover {cursor: pointer; }
-			
+
 </style>
 <body style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
 	<div id="" class="" style="width: 100%; height: 35px; font-size: medium;">
@@ -123,11 +121,15 @@ function inCheck() {
 			</p>
 		</div>
 	</header>
+	<c:if test="${not empty message}">
+		alert("${message}");
+	</c:if>
+	<hr>
 	<form action="comjoin" method="post">				
 		<div>
 			<span class="contentName"><b>아이디</b></span><br>
 			<input type="text" id="com_id" name="com_id" placeholder=" 아이디를 입력하세요" size="20">&nbsp;&nbsp;
-			<input type="button" value="ID중복확인" id="idDup" onclick="idDupCheck()"><br>
+			<input id="find" type="button" value="ID중복확인" id="idDup" onclick="idDupCheck()"><br>
 	      	<span id="iMessage" class="eMessage"></span>
 		</div>
 		<div>
@@ -152,8 +154,5 @@ function inCheck() {
 		<input type="submit" value="가입" onclick="return inCheck()" id="submit" disabled="disabled">&nbsp;&nbsp;
 		<input type="reset" value="취소">&nbsp;&nbsp;
 	</form>
-	<c:if test="${not empty message}">
-	alert("${message}");
-	</c:if>
 </body>
 </html>

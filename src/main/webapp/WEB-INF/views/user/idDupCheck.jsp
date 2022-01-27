@@ -22,7 +22,6 @@
 		
 		//opener.$('#idDup').prop('disabled', true);
 		//opener.$('#submit').prop('disabled', false);
-		opener.document.getElementById('idDup').disabled = 'disabled';
 		opener.document.getElementById('submit').disabled = '';
 		
 		// ** JQ 방식으로 속성 접근

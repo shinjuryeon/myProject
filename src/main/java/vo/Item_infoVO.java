@@ -1,5 +1,7 @@
 package vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -13,4 +15,6 @@ public class Item_infoVO { //form, VO, table column 이름 동일하게 만들�
 	private int category_code;
 	private String com_id;
 	private String item_date;
+	
+	private MultipartFile uploadfilef;
 } //class
