@@ -176,38 +176,38 @@
 	   <span class="visually-hidden">Next</span>
 	 </button>
 </div>
-<div style="position: absolute; z-index: 1000; height: 720px; width: 200px; margin-left: 30px; background-color: #F4F4F4; opacity: 0.85;">
+<div style="position: absolute; z-index: 1000; height: 720px; width: 200px; margin-left: 30px; background-color: #F4F4F4; opacity: 0.80;">
 	<ul style="margin-top:13px">
 		<li style="font-size: 16px; font-weight: bold;">FOOD</li>
-		<li id=""><a href="">과일</a></li>
-		<li id=""><a href="">채소</a></li>
-		<li id=""><a href="">쌀/잡곡/견과</a></li>
-		<li id=""><a href="">정육/계란</a></li>
-		<li id=""><a href="">수산물/건해산</a></li>
-		<li id=""><a href="">우유/유제품/유아식</a></li>
-		<li value=""><a href="">냉장/냉동/간편식</a></li>
-		<li value=""><a href="">밀키트/김치/반찬</a></li>
-		<li value=""><a href="">생수/음료/주류</a></li>
-		<li value=""><a href="">커피/원두/차</a></li>
-		<li value=""><a href="">라면/면류/즉석식품/통조림</a></li>
-		<li value=""><a href="">장류/양념/가루/오일</a></li>
-		<li value=""><a href="">과자/시리얼/빙과/떡</a></li>
-		<li value=""><a href="">베이커리/잼/샐러드</a></li>
-		<li value=""><a href="">건강식품</a></li>
+		<li><a href="itemlist?category_code=1">과일</a></li>
+		<li><a href="itemlist?category_code=2">채소</a></li>
+		<li><a href="itemlist?category_code=3">쌀/잡곡/견과</a></li>
+		<li><a href="itemlist?category_code=4">정육/계란</a></li>
+		<li><a href="itemlist?category_code=5">수산물/건해산</a></li>
+		<li><a href="itemlist?category_code=6">우유/유제품/유아식</a></li>
+		<li><a href="itemlist?category_code=7">냉장/냉동/간편식</a></li>
+		<li><a href="itemlist?category_code=8">밀키트/김치/반찬</a></li>
+		<li><a href="itemlist?category_code=9">생수/음료/주류</a></li>
+		<li><a href="itemlist?category_code=10">커피/원두/차</a></li>
+		<li><a href="itemlist?category_code=11">라면/면류/즉석식품/통조림</a></li>
+		<li><a href="itemlist?category_code=12">장류/양념/가루/오일</a></li>
+		<li><a href="itemlist?category_code=13">과자/시리얼/빙과/떡</a></li>
+		<li><a href="itemlist?category_code=14">베이커리/잼/샐러드</a></li>
+		<li><a href="itemlist?category_code=15">건강식품</a></li>
 		<li style="font-size: 16px; font-weight: bold; line-height: 25px;">LIFE</li>
-		<li value=""><a href="">제지/위생/건강용품</a></li>
-		<li value=""><a href="">세탁/청소/욕실/생활용품</a></li>
-		<li value=""><a href="">침구/가구/홈인테리어</a></li>
-		<li value=""><a href="">주방용품</a></li>
-		<li value=""><a href="">생활잡화/공구</a></li>
-		<li value=""><a href="">반려동물</a></li>
-		<li value=""><a href="">뷰티</a></li>
-		<li value=""><a href="">유아동/출산/완구</a></li>
-		<li value=""><a href="">패션/언더웨어</a></li>
-		<li value=""><a href="">잡화/슈즈/명품</a></li>
-		<li value=""><a href="">스포츠/레저/여행/자동차</a></li>
-		<li value=""><a href="">컴퓨터/가전/디지털/렌탈</a></li>
-		<li value=""><a href="">문구/취미/도서</a></li>
+		<li><a href="itemlist?category_code=16">제지/위생/건강용품</a></li>
+		<li><a href="itemlist?category_code=17">세탁/청소/욕실/생활용품</a></li>
+		<li><a href="itemlist?category_code=18">침구/가구/홈인테리어</a></li>
+		<li><a href="itemlist?category_code=19">주방용품</a></li>
+		<li><a href="itemlist?category_code=20">생활잡화/공구</a></li>
+		<li><a href="itemlist?category_code=21">반려동물</a></li>
+		<li><a href="itemlist?category_code=22">뷰티</a></li>
+		<li><a href="itemlist?category_code=23">유아동/출산/완구</a></li>
+		<li><a href="itemlist?category_code=24">패션/언더웨어</a></li>
+		<li><a href="itemlist?category_code=25">잡화/슈즈/명품</a></li>
+		<li><a href="itemlist?category_code=26">스포츠/레저/여행/자동차</a></li>
+		<li><a href="itemlist?category_code=27">컴퓨터/가전/디지털/렌탈</a></li>
+		<li><a href="itemlist?category_code=28">문구/취미/도서</a></li>
 	</ul>
 </div>
 

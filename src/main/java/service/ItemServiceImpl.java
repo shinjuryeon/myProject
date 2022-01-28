@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mapperInterface.ItemMapper;
+import vo.CategoryVO;
 import vo.Item_infoVO;
 
 @Service
@@ -17,6 +18,16 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<Item_infoVO> selectList() {
 		return dao.selectList();
+	}
+	
+	@Override
+	public List<Item_infoVO> selectCode(Item_infoVO vo) {
+		return dao.selectCode(vo);
+	}
+	
+	@Override
+	public String selectKor(CategoryVO cvo) {
+		return dao.selectKor(cvo);
 	}
 
 	@Override

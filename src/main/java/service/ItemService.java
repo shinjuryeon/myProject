@@ -2,11 +2,16 @@ package service;
 
 import java.util.List;
 
+import vo.CategoryVO;
 import vo.Item_infoVO;
 
 public interface ItemService {
 	
 	List<Item_infoVO> selectList(); //selectList
+	
+	List<Item_infoVO> selectCode(Item_infoVO vo);
+	
+	String selectKor(CategoryVO cvo);
 
 	Item_infoVO selectOne(Item_infoVO vo); //selectOne
 
