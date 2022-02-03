@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>** 판매물품등록 **</title>
+	<title>** 판매물품수정 **</title>
 	<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
     <script src="resources/myLib/jquery-3.2.1.min.js"></script>
     <script src="resources/myLib/inCheck4.js"></script>
@@ -47,11 +47,11 @@ function inCheck() {
 	}
 
 	if (iCheck && pCheck && nCheck) {
-		if (confirm("정말 등록 하십니까?")==false) {
-			alert('상품등록이 취소되었습니다');
+		if (confirm("정말 수정 하십니까?")==false) {
+			alert('상품수정이 취소되었습니다');
 		 	return false;
 		}else {
-			alert('상품등록에 성공했습니다');
+			alert('상품수정에 성공했습니다');
 			return true;
 		}
 	} else return false; 
@@ -103,7 +103,7 @@ function inCheck() {
 	<header class="header">
 		<a href="home"><img src="resources/image/logo.png" style="width:210px; height:110px;"></a><br>
 		<div style="position: relative; margin:30px 0px;">
-			<h2>판매물품등록</h2>
+			<h2>판매물품수정</h2>
 			<p style="font-size: medium;">
 			다양한 어쩌구 저쩌구~
 			</p>
@@ -113,29 +113,29 @@ function inCheck() {
 		alert("${message}");
 	</c:if>
 	<hr>
-	<form action="itemjoin" method="post" enctype="multipart/form-data" id="myForm">
+	<form action="itemupdate" method="post" enctype="multipart/form-data" id="myForm">
 		<div>
 			<span class="contentName"><b>상품명</b></span><br>
-			<input type="text" id="item_name" name="item_name" placeholder=" 상품명을 입력하세요" size="20"><br>
+			<input type="text" id="item_name" name="item_name" value="${peach.item_name}" size="20"><br>
 	      	<span id="nMessage" class="eMessage"></span>
 		</div>
 		<div>
 			<span class="contentName"><b>상품가격</b></span><br>
-			<input type="text" id="item_price" name="item_price" placeholder=" 숫자만 입력가능" size="20"><br>
+			<input type="text" id="item_price" name="item_price" value="${peach.item_price}" size="20"><br>
 	      	<span id="pMessage" class="eMessage"></span>
 		</div>
 		<div>
 			<span class="contentName"><b>상품소개글</b></span><br>
-			<textarea name="content" placeholder="내용을 입력하세요" rows="10" cols="48"></textarea>
+			<textarea name="content" rows="10" cols="48">${peach.content}</textarea>
 		</div>
 		<div>
 			<span class="contentName"><b>상품재고</b></span><br>
-			<input type="text" id="inventory" name="inventory" placeholder=" 숫자만 입력가능" size="20"><br>
+			<input type="text" id="inventory" name="inventory" value="${peach.inventory}" size="20"><br>
 	      	<span id="iMessage" class="eMessage"></span>
 		</div>
 		<div>
 			<span class="contentName"><b>상품사진</b></span><br>
-			<img src="" class="select_img"><br>
+			<img src="${peach.uploadfile}" class="select_img"><br>
 			<input type="file" name="uploadfilef" id="uploadfilef" class="uploadfilef">
 			<script>  
 		       $('#uploadfilef').change(function(){
@@ -185,9 +185,9 @@ function inCheck() {
 		</div>
 		<div>
 			<span class="contentName"><b>등록회사</b></span><br>
-			<input type="text" id="com_id" name="com_id" value="${logincID}" readonly="readonly" size="20">&nbsp;&nbsp;
+			<input type="text" id="com_id" name="com_id" value="${peach.com_id}" readonly="readonly" size="20">&nbsp;&nbsp;
 		</div>
-		<input type="submit" value="등록" onclick="return inCheck()" id="submit">&nbsp;&nbsp;
+		<input type="submit" value="수정" onclick="return inCheck()" id="submit">&nbsp;&nbsp;
 		<input type="reset" value="취소">&nbsp;&nbsp;
 	</form>
 </body>

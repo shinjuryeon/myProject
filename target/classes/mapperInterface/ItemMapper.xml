@@ -22,6 +22,10 @@
 		select * from item_info where item_seq = #{item_seq}
  	</select>
  	
+ 	<select id="selectItemListbyComId" resultType="vo.Item_infoVO">
+ 		select * from item_info where com_id = #{com_id}
+ 	</select>
+ 	
 	<insert id="insert">
 		<selectKey keyProperty="item_seq" resultType="int" order="BEFORE">
 			select nvl(max(item_seq),0)+1 from item_info
@@ -33,12 +37,13 @@
  
  	<update id="update">
  		update item_info set 
- 			item_name=#{item_name}, 
+ 			item_name=#{item_name, jdbcType=VARCHAR},
  			item_price=#{item_price}, 
- 			content=#{content}, 
+ 			content=#{content, jdbcType=VARCHAR}, 
  			inventory=#{inventory}, 
- 			uploadfile=#{uploadfile},
- 			category_code=#{category_code}
+ 			uploadfile=#{uploadfile, jdbcType=VARCHAR},
+ 			category_code=#{category_code},
+ 			com_id=#{com_id, jdbcType=VARCHAR}
  		where item_seq=#{item_seq}
  	</update>
  

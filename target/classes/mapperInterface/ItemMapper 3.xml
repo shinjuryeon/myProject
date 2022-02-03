@@ -13,6 +13,10 @@
 		select * from item_info where category_code = #{category_code}	
 	</select>
 	
+	<select id="selectKor" resultType="String">
+		select category_korcode from category where category_code = #{category_code}
+	</select>
+	
 	<!-- 내정보보기 -->
  	<select id="selectOne" resultType="vo.Item_infoVO">
 		select * from item_info where item_seq = #{item_seq}

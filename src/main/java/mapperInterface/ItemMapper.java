@@ -15,6 +15,8 @@ public interface ItemMapper {
 
 	Item_infoVO selectOne(Item_infoVO vo); //selectOne
 
+	List<Item_infoVO> selectItemListbyComId(Item_infoVO vo);
+	
 	int insert(Item_infoVO vo); //insert
 
 	int update(Item_infoVO vo); //insert

@@ -128,6 +128,7 @@
 	<div style="margin: 17px 100px;">
 	  	<span class="top" style="margin-right:0px; color: black;">${loginName}</span><span class="top">님 반갑습니다!</span>
 	  	<span id="top"><a class="top" href="comdetail?com_id=${logincID}">내정보보기</a></span>
+	  	<span id="top"><a class="top" href="itemcomdetail?com_id=${logincID}">내등록물품보기</a></span>
 	  	<span id="top"><a class="top" href="itemjoinf?com_id=${logincID}">판매물품등록</a></span>
 	  	<span id="top"><a class="top" href="logout">로그아웃</a></span>
 	</div>

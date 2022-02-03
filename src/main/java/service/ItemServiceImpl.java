@@ -36,6 +36,11 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
+	public List<Item_infoVO> selectItemListbyComId(Item_infoVO vo) {
+		return dao.selectItemListbyComId(vo);
+	}
+
+	@Override
 	public int insert(Item_infoVO vo) {
 		return dao.insert(vo);
 	}
