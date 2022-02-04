@@ -6,7 +6,7 @@
 	<!-- item_info -->	
 	<select id="selectList" resultType="vo.Item_infoVO">
 		select *
-	    from item_info order by item_seq asc
+	    from item_info order by item_seq desc
 	</select>
 	
 	<select id="selectCode" resultType="vo.Item_infoVO">
@@ -23,7 +23,11 @@
  	</select>
  	
  	<select id="selectItemListbyComId" resultType="vo.Item_infoVO">
- 		select * from item_info where com_id = #{com_id}
+ 		select * from item_info where com_id = #{com_id} order by item_seq desc
+ 	</select>
+ 	
+ 	<select id="selectComName" resultType="string">
+ 		select com_name from company_info where com_id = #{com_id}
  	</select>
  	
 	<insert id="insert">

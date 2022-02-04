@@ -71,7 +71,7 @@ public class ItemController {
 	} //itemjoin
 	
 	// 카테고리별 상품출력
-	@RequestMapping(value="/itemlist")
+	@RequestMapping(value="/itemcodelist")
 	public ModelAndView itemlist(HttpServletRequest request, ModelAndView mv, Item_infoVO vo, CategoryVO cvo) {
 		List<Item_infoVO> list = new ArrayList<Item_infoVO>();
 		vo.setCategory_code(Integer.parseInt(request.getParameter("category_code")));
@@ -87,36 +87,46 @@ public class ItemController {
 			mv.addObject("message", "** 출력할 자료가 없습니다 **");
 		}
 		
-		mv.setViewName("item/item_list");
+		mv.setViewName("item/item_codelist");
 		return mv;
-	} //itemlist
+	} //itemcodelist
 	
-	@RequestMapping(value="/itemcomdetail")
-	public ModelAndView itemcomdetail(HttpServletRequest request, ModelAndView mv, Item_infoVO vo) {
+	@RequestMapping(value="/itemcomlist")
+	public ModelAndView itemcomlist(HttpServletRequest request, ModelAndView mv, Item_infoVO vo) {
 		
-		//request.getSession().setAttribute("logincID", vo.getCom_id());
+		HttpSession session = request.getSession(false);
+		if (vo.getCom_id() == null || vo.getCom_id().length()<1) {
+			if (session != null && session.getAttribute("logincID") != null) {
+				vo.setCom_id((String)session.getAttribute("logincID"));
+			}
+		}
 		
 		List<Item_infoVO> list = new ArrayList<Item_infoVO>();
-		
-		String uri = "item/item_comdetail";
-		
 		list = service.selectItemListbyComId(vo);
-		
-		vo = service.selectOne(vo);
 		
 		if (list != null) {
 			mv.addObject("apple", list);
-			if ("U".equals(request.getParameter("jcode"))) {
-				uri = "item/item_updateForm";
-				mv.addObject("peach", vo);
-			}
 		} else {
 			mv.addObject("message", "** 출력할 자료가 없습니다 **");
 		}
 		
-		mv.setViewName(uri);
+		mv.setViewName("item/item_comdetail");
 		return mv;
-	} //itemcomdetail
+	} //itemcomlist
+	
+	@RequestMapping(value="/itemcomdetail")
+	public ModelAndView itemcomdetail(HttpServletRequest request, ModelAndView mv, Item_infoVO vo) {
+		vo = service.selectOne(vo);
+		
+		if (vo != null) {
+			mv.addObject("peach", vo);
+		} else {
+			mv.addObject("message", "** 출력할 자료가 없습니다 **");
+		}
+		
+		mv.setViewName("item/item_updateForm");
+		return mv;
+	}
 	
 	@RequestMapping(value="/itemupdate")
 	public ModelAndView itemupdate(HttpServletRequest request, ModelAndView mv, Item_infoVO vo, RedirectAttributes rttr) throws IOException {
@@ -145,11 +155,11 @@ public class ItemController {
 		if (service.update(vo) > 0) {
 			// update 성공
 			rttr.addFlashAttribute("message", "** 수정에 성공했습니다 **");
-			uri = "redirect:home";
+			uri = "redirect:itemcomlist?com_id="+vo.getCom_id();
 		} else {
 			// 실패
 			rttr.addFlashAttribute("message", "** 수정에 실패했습니다 **");
-			uri = "redirect:itemcomdetail?jcode=U&item_seq="+vo.getItem_seq();
+			uri = "redirect:itemcomdetail?item_seq="+vo.getItem_seq();
 		}
 		
 		mv.setViewName(uri);
@@ -185,5 +195,56 @@ public class ItemController {
 //		mv.setViewName(uri);
 //		return mv;
 	} //itemupdate
+	
+	@RequestMapping(value="/itemdelete")
+	public ModelAndView itemdelete(HttpServletRequest request, ModelAndView mv, Item_infoVO vo, RedirectAttributes rttr) {
+		
+		String uri = "redirect:home";
+		
+		if (service.delete(vo) > 0) {
+			rttr.addFlashAttribute("message", "** 상품이 삭제되었습니다 **");
+		} else {
+			mv.addObject("message", "** 상품 삭제 실패했습니다 **");
+			uri = "redirect:itemcomdetail";
+		}
+		
+		mv.setViewName(uri);
+		return mv;
+	} //itemdelete
+	
+	// 관리자 판매상품조회
+	@RequestMapping(value="/itemlist") 
+	public ModelAndView itemlist(ModelAndView mv) {
+		List<Item_infoVO> list = new ArrayList<Item_infoVO>();
+		
+		list = service.selectList();
+		
+		if (list != null) {
+			mv.addObject("banana", list);
+		} else {
+			mv.addObject("message", "** 출력할 자료가 없습니다 **");
+		}
+		
+		mv.setViewName("item/item_list");
+		return mv;
+	} //itemdelete
+	
+	@RequestMapping(value="/itemexplain")
+	public ModelAndView itemexplain(HttpServletRequest request, ModelAndView mv, Item_infoVO vo) {
+		
+		vo = service.selectOne(vo);
+		vo.setCom_id(request.getParameter("com_id"));
+		String comName = service.selectComName(vo);
+		
+		if (vo != null && comName != null) {
+			mv.addObject("cherry", vo);
+			mv.addObject("comName", comName);
+		} else {
+			mv.addObject("message", "** 출력할 자료가 없습니다 **");
+		}
+		
+		mv.setViewName("item/item_explain");
+		return mv;
+	} //itemexplain
 
 }

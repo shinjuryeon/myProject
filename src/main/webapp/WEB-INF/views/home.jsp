@@ -128,7 +128,7 @@
 	<div style="margin: 17px 100px;">
 	  	<span class="top" style="margin-right:0px; color: black;">${loginName}</span><span class="top">님 반갑습니다!</span>
 	  	<span id="top"><a class="top" href="comdetail?com_id=${logincID}">내정보보기</a></span>
-	  	<span id="top"><a class="top" href="itemcomdetail?com_id=${logincID}">내등록물품보기</a></span>
+	  	<span id="top"><a class="top" href="itemcomlist?com_id=${logincID}">내등록물품보기</a></span>
 	  	<span id="top"><a class="top" href="itemjoinf?com_id=${logincID}">판매물품등록</a></span>
 	  	<span id="top"><a class="top" href="logout">로그아웃</a></span>
 	</div>
@@ -138,6 +138,7 @@
 	  	<span class="top" style="margin-right:0px; color: black;">${loginName}</span><span class="top">님 반갑습니다!</span>
 	  	<span id="top"><a class="top" href="userlist">구매자리스트</a></span>
 	  	<span id="top"><a class="top" href="comlist">판매자리스트</a></span>
+	  	<span id="top"><a class="top" href="itemlist">판매상품조회/등록</a></span>
 	  	<span id="top"><a class="top" href="categorylist">상품코드조회/등록</a></span>
 	  	<span id="top"><a class="top" href="logout">로그아웃</a></span>
 	</div>
@@ -177,50 +178,40 @@
 	   <span class="visually-hidden">Next</span>
 	 </button>
 </div>
-<div style="position: absolute; z-index: 1000; height: 720px; width: 200px; margin-left: 30px; background-color: #F4F4F4; opacity: 0.80;">
+<div style="position: absolute; z-index: 1000; height: 720px; width: 200px; margin-left: 55px; background-color: #F4F4F4; opacity: 0.80;">
 	<ul style="margin-top:13px">
 		<li style="font-size: 16px; font-weight: bold;">FOOD</li>
-		<li><a href="itemlist?category_code=1">과일</a></li>
-		<li><a href="itemlist?category_code=2">채소</a></li>
-		<li><a href="itemlist?category_code=3">쌀/잡곡/견과</a></li>
-		<li><a href="itemlist?category_code=4">정육/계란</a></li>
-		<li><a href="itemlist?category_code=5">수산물/건해산</a></li>
-		<li><a href="itemlist?category_code=6">우유/유제품/유아식</a></li>
-		<li><a href="itemlist?category_code=7">냉장/냉동/간편식</a></li>
-		<li><a href="itemlist?category_code=8">밀키트/김치/반찬</a></li>
-		<li><a href="itemlist?category_code=9">생수/음료/주류</a></li>
-		<li><a href="itemlist?category_code=10">커피/원두/차</a></li>
-		<li><a href="itemlist?category_code=11">라면/면류/즉석식품/통조림</a></li>
-		<li><a href="itemlist?category_code=12">장류/양념/가루/오일</a></li>
-		<li><a href="itemlist?category_code=13">과자/시리얼/빙과/떡</a></li>
-		<li><a href="itemlist?category_code=14">베이커리/잼/샐러드</a></li>
-		<li><a href="itemlist?category_code=15">건강식품</a></li>
+		<li><a href="itemcodelist?category_code=1">과일</a></li>
+		<li><a href="itemcodelist?category_code=2">채소</a></li>
+		<li><a href="itemcodelist?category_code=3">쌀/잡곡/견과</a></li>
+		<li><a href="itemcodelist?category_code=4">정육/계란</a></li>
+		<li><a href="itemcodelist?category_code=5">수산물/건해산</a></li>
+		<li><a href="itemcodelist?category_code=6">우유/유제품/유아식</a></li>
+		<li><a href="itemcodelist?category_code=7">냉장/냉동/간편식</a></li>
+		<li><a href="itemcodelist?category_code=8">밀키트/김치/반찬</a></li>
+		<li><a href="itemcodelist?category_code=9">생수/음료/주류</a></li>
+		<li><a href="itemcodelist?category_code=10">커피/원두/차</a></li>
+		<li><a href="itemcodelist?category_code=11">라면/면류/즉석식품/통조림</a></li>
+		<li><a href="itemcodelist?category_code=12">장류/양념/가루/오일</a></li>
+		<li><a href="itemcodelist?category_code=13">과자/시리얼/빙과/떡</a></li>
+		<li><a href="itemcodelist?category_code=14">베이커리/잼/샐러드</a></li>
+		<li><a href="itemcodelist?category_code=15">건강식품</a></li>
 		<li style="font-size: 16px; font-weight: bold; line-height: 25px;">LIFE</li>
-		<li><a href="itemlist?category_code=16">제지/위생/건강용품</a></li>
-		<li><a href="itemlist?category_code=17">세탁/청소/욕실/생활용품</a></li>
-		<li><a href="itemlist?category_code=18">침구/가구/홈인테리어</a></li>
-		<li><a href="itemlist?category_code=19">주방용품</a></li>
-		<li><a href="itemlist?category_code=20">생활잡화/공구</a></li>
-		<li><a href="itemlist?category_code=21">반려동물</a></li>
-		<li><a href="itemlist?category_code=22">뷰티</a></li>
-		<li><a href="itemlist?category_code=23">유아동/출산/완구</a></li>
-		<li><a href="itemlist?category_code=24">패션/언더웨어</a></li>
-		<li><a href="itemlist?category_code=25">잡화/슈즈/명품</a></li>
-		<li><a href="itemlist?category_code=26">스포츠/레저/여행/자동차</a></li>
-		<li><a href="itemlist?category_code=27">컴퓨터/가전/디지털/렌탈</a></li>
-		<li><a href="itemlist?category_code=28">문구/취미/도서</a></li>
+		<li><a href="itemcodelist?category_code=16">제지/위생/건강용품</a></li>
+		<li><a href="itemcodelist?category_code=17">세탁/청소/욕실/생활용품</a></li>
+		<li><a href="itemcodelist?category_code=18">침구/가구/홈인테리어</a></li>
+		<li><a href="itemcodelist?category_code=19">주방용품</a></li>
+		<li><a href="itemcodelist?category_code=20">생활잡화/공구</a></li>
+		<li><a href="itemcodelist?category_code=21">반려동물</a></li>
+		<li><a href="itemcodelist?category_code=22">뷰티</a></li>
+		<li><a href="itemcodelist?category_code=23">유아동/출산/완구</a></li>
+		<li><a href="itemcodelist?category_code=24">패션/언더웨어</a></li>
+		<li><a href="itemcodelist?category_code=25">잡화/슈즈/명품</a></li>
+		<li><a href="itemcodelist?category_code=26">스포츠/레저/여행/자동차</a></li>
+		<li><a href="itemcodelist?category_code=27">컴퓨터/가전/디지털/렌탈</a></li>
+		<li><a href="itemcodelist?category_code=28">문구/취미/도서</a></li>
 	</ul>
 </div>
 
 </main>
-
-<footer class="py-5">
-    <div class="container px-5"><p class="m-0 text-center text-white">Copyright © Your Website 2021</p></div>
-</footer>
-
-<div style="widht: 100%; height: 50px; position: absolute; bottom: 10px;">
-
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 </html>

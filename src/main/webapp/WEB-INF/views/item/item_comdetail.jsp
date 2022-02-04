@@ -51,10 +51,10 @@
 	</tr>
 	<c:forEach var="list" items="${apple}">
 	<tr height="30" align="center">
-		<td>${list.item_seq}</td><td>${list.item_name}</td>
+		<td width="10%">${list.item_seq}</td><td>${list.item_name}</td>
 		<td>${list.item_price}</td><td>${list.inventory}</td>
 		<td><img src="${list.uploadfile}" width="70" height="100"></td>
-		<td width="100px"><span><a href="itemcomdetail?jcode=U&item_seq=${list.item_seq}" id="a">[수정]</a></span>&nbsp;&nbsp;
+		<td width="100px"><span><a href="itemcomdetail?item_seq=${list.item_seq}" id="a">[수정]</a></span>&nbsp;&nbsp;
 						  <span><a href="itemdelete?item_seq=${list.item_seq}" onclick="return inCheck()" id="a">[삭제]</a></span>
 		</td>
 	</tr>

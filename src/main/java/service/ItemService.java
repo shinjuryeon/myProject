@@ -17,6 +17,8 @@ public interface ItemService {
 
 	List<Item_infoVO> selectItemListbyComId(Item_infoVO vo);
 	
+	String selectComName(Item_infoVO vo);
+	
 	int insert(Item_infoVO vo); //insert
 
 	int update(Item_infoVO vo); //insert
