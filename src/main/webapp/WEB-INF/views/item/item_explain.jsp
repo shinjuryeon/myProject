@@ -91,6 +91,28 @@
     }
 </style>
 <script>
+	$(function() {
+	    var responseMessage = "<c:out value="${message}" />";
+	    if(responseMessage != "") {
+	        alert(responseMessage);
+	    }
+	})
+	
+	function cartCheck() {
+		if (confirm("장바구니에 담으시겠습니까?")==false) {
+			alert('취소되었습니다');
+		 	return false;
+		} else {
+			if (${not empty loginID}) {
+				alert('장바구니에 담았습니다');
+				return true;
+			} else {
+				alert('로그인 후 이용해주세요');
+				return true;
+			}
+		}
+	}
+
 	function userloginf() {
 		var url = "/green/userloginf";
 		open(url, "_blank", "toolbar=yes, menubar=yes, scrollbars=yes, resizable=yes, width=400, height=200");
@@ -99,7 +121,7 @@
 		var url = "/green/comloginf";
 		open(url, "_blank", "toolbar=yes, menubar=yes, scrollbars=yes, resizable=yes, width=400, height=200");
 	}
-	opener.document.location.reload();
+ 	opener.document.location.reload();
 	self.close();
 	
 	function count(type) {
@@ -189,11 +211,11 @@
 		</div>
 		<hr>
 		<form action="cartinsert" method="post">
-			<input type="hidden" class="item_seq" value="${cherry.item_seq}">
-			<input type="hidden" class="user_id" value="${loginID}">
+			<input type="hidden" name="item_seq" value="${cherry.item_seq}">
+			<%-- <input type="hidden" name="user_id" value="${loginID}"> --%>
 			<div style="font-size: 20px; display:flex; margin-left: 10px;">
 				<a href="javascript:void(0);" onclick='count("minus")' style="text-decoration: none;"><span id="inven">-</span></a>
-				<div id="inven"><input id="cart_count" class="cart_count" value="1" readonly="readonly"></div>
+				<div id="inven"><input id="cart_count" name="cart_count" value="1" readonly="readonly"></div>
 				<a href="javascript:void(0);" onclick='count("plus")' style="text-decoration: none;"><span id="inven">+</span></a>
 			</div>
 			<div style="float: right; margin: 10px 0px;">
@@ -203,7 +225,7 @@
 			</div>
 			<br><br><br>
 			<hr>
-			<input type="submit" value="장바구니" id="cart" class="submit">&nbsp;&nbsp;
+			<input type="submit" value="장바구니" id="cart" class="submit" onclick="return cartCheck()">&nbsp;&nbsp;
 			<input type="submit" value="바로구매" id="buy" class="submit">
 		</form>
 	</div>

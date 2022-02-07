@@ -1,13 +1,17 @@
 package service;
 
-import vo.Cart_infoVO;
+import java.util.List;
+
+import vo.CartVO;
 
 public interface CartService {
 	
-	int insert(Cart_infoVO vo);
+	List<CartVO> selectList();
 	
-	int update(Cart_infoVO vo);
+	int insert(CartVO vo);
 	
-	int delete(Cart_infoVO vo);
+	int update(CartVO vo);
+	
+	int delete(CartVO vo);
 
 }

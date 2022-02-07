@@ -3,24 +3,24 @@
                     "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="mapperInterface.CartMapper">
 	
-	<select id="selectList" resultType="vo.Cart_infoVO">
-		select * from cart_info order by cart_seq desc
+	<select id="selectList" resultType="vo.CartVO">
+		select * from cart order where user_id=#{user_id} by cart_seq desc
 	</select>
 
-	<insert id="insert">
+	<insert id="insert" parameterType="vo.CartVO">
 		<selectKey keyProperty="cart_seq" resultType="int" order="BEFORE">
-			select nvl(max(cart_seq),0)+1 from cart_info
+			select nvl(max(cart_seq),0)+1 from cart
 		</selectKey>
-		insert into cart_info values ( #{cart_seq},#{user_id},#{item_seq},#{cart_count} )
+		insert into cart values ( #{cart_seq},#{user_id},#{item_seq},#{cart_count} )
 	</insert>
 	
 	<update id="update">
-		update cart_info set
+		update cart set
 			cart_count = #{cart_count} where cart_seq = #{cart_seq}
 	</update>
 	
 	<delete id="delete">
-		delete from cart_info where cart_seq = #{cart_seq}
+		delete from cart where cart_seq = #{cart_seq}
 	</delete>
  
 </mapper>

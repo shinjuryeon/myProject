@@ -44,7 +44,7 @@
 </form>
 <span id="message"></span>
 <c:if test="${not empty message}">
-	<br>=> ${message}<br><br>
+	alert("${message}");
 </c:if>
 </body>
 </html>

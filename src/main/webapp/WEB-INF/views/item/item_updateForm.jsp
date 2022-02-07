@@ -13,6 +13,13 @@
   var nCheck = false;
   var pCheck = false;
   var iCheck = false;
+  
+  $(function() {
+      var responseMessage = "<c:out value="${message}" />";
+      if(responseMessage != "") {
+          alert(responseMessage);
+      }
+  })
 
   $(function() {
 	  $('#item_name').focus();
@@ -109,9 +116,6 @@ function inCheck() {
 			</p>
 		</div>
 	</header>
-	<c:if test="${not empty message}">
-		alert("${message}");
-	</c:if>
 	<hr>
 	<form action="itemupdate" method="post" enctype="multipart/form-data" id="myForm">
 		<div>

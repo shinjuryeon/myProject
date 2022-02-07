@@ -95,6 +95,13 @@
 	} */
 </style>
 <script>
+	$(function() {
+	    var responseMessage = "<c:out value="${message}" />";
+	    if(responseMessage != "") {
+	        alert(responseMessage);
+	    }
+	})
+
 	function userloginf() {
 		var url = "/green/userloginf";
 		open(url, "_blank", "toolbar=yes, menubar=yes, scrollbars=yes, resizable=yes, width=400, height=200");
@@ -105,6 +112,7 @@
 	}
 	opener.document.location.reload();
 	self.close();
+
 </script>
 <body>
 <div id="" class="" align="right" style="width: 100%; height: 35px; font-size: medium;">
