@@ -30,7 +30,7 @@
 		var deleteCheck = true;
 		
 		if (deleteCheck) {
-			if (confirm("정말 삭제 하십니까 ? (Yes:확인 / No:취소)")==false) {
+			if (confirm("정말 삭제 하십니까 ?")==false) {
 				alert('삭제 취소되었습니다');
 			 	return false;
 			}else {

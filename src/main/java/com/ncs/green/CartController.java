@@ -49,14 +49,24 @@ public class CartController {
 	} //cartinsert
 	
 	@RequestMapping(value="/cartlist")
-	public ModelAndView cartlist(ModelAndView mv, CartVO vo) {
+	public ModelAndView cartlist(HttpServletRequest request, ModelAndView mv, CartVO vo) {
 		List<CartVO> list = new ArrayList<CartVO>();
 		
-		list = service.selectList();
+		HttpSession session = request.getSession(false);
+		if (vo.getUser_id() == null || vo.getUser_id().length()<1) {
+			if (session != null && session.getAttribute("loginID") != null) {
+				vo.setUser_id((String)session.getAttribute("loginID"));
+			}
+		}
 		
+		list = service.selectList(vo);
+		if (list != null) {
+			mv.addObject("banana", list);
+		} else {
+			mv.addObject("message", "** 출력할 자료가 없습니다 **");
+		}
 		 
-		String uri = null;
-		mv.setViewName(uri);
+		mv.setViewName("cart/cart_list");
 		return mv;
 	}
 

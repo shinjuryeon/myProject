@@ -4,7 +4,7 @@
 <mapper namespace="mapperInterface.CartMapper">
 	
 	<select id="selectList" resultType="vo.CartVO">
-		select * from cart order where user_id=#{user_id} by cart_seq desc
+		select * from cart where user_id=#{user_id, jdbcType=VARCHAR} order by cart_seq desc
 	</select>
 
 	<insert id="insert" parameterType="vo.CartVO">

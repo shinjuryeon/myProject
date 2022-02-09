@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>카테고리 > ${item_name}</title>
+<title>${cherry.item_name}</title>
     <link href="resources/myLib/styles.css" rel="stylesheet">
     <script src="resources/myLib/jquery-3.2.1.min.js"></script>
 </head>
@@ -19,6 +19,76 @@
 		font-weight:bold;
 		text-decoration: none;
 	}
+	header {
+		background-color: #9ACD32;
+		width: 100%;
+		height: 120px;
+	}
+    #search {
+    	position: absolute;
+    	width: 400px;
+    	height: 45px;
+    	border: 1px solid #262626;
+    	background-color: #ffffff;
+    	margin-left: 35%;
+    	top: 90px;
+    }
+    input {
+    	font-size: 16px;
+    	width: 195px;
+    	padding: 9px;
+    	border: 0px;
+    	outline: none;
+    	float: left;
+    }
+    button {
+    	width: 50px;
+    	height: 100%;
+    	border: 0px;
+    	color: #ffffff;
+    	outline: none;
+    	float: right;
+    	background-color: #222222;
+    }
+    #comid {
+    	font-size: 15px;
+    	line-height: 35px;
+    	color: #585858;
+    }
+    #name {
+        font-size: 28px;
+    	line-height: 35px;
+    	color: #222222;
+    	letter-spacing: -0.5px;
+   		word-wrap: break-word;
+    	word-break: break-all;
+    }
+    #price {
+    	font-size: 45px;
+    	color: #222222;
+    	vertical-align: middle;
+    }
+    #price2 {
+    	font-size: 25px;
+    	color: #222222;
+    	vertical-align: middle;
+    	display: inline-block;
+   		margin: 4px 0 0 0;
+    }
+    #inven {
+    	margin-right: 10px;
+    	width: 30px;
+    	color: #222222;
+    }
+    #cart {
+    	background-color: #222222;
+    }
+    #buy {
+    	background-color: #EA4F33;
+    }
+    .submit {
+    	color: white;
+    }
 </style>
 <script>
 	$(function() {
@@ -28,6 +98,7 @@
 	    }
 	})
 	
+
 	function userloginf() {
 		var url = "/green/userloginf";
 		open(url, "_blank", "toolbar=yes, menubar=yes, scrollbars=yes, resizable=yes, width=400, height=200");
@@ -38,6 +109,22 @@
 	}
  	opener.document.location.reload();
 	self.close();
+	
+	function inCheck() {	
+		var deleteCheck = true;
+		
+		if (deleteCheck) {
+			if (confirm("정말 삭제 하십니까 ?")==false) {
+				alert('삭제 취소되었습니다');
+			 	return false;
+			}else {
+				alert('삭제 성공했습니다');
+				return true;
+			}
+		} else return false; 
+	} //inCheck
+	
+	opener.location.reload();
 	
 </script>
 <body>
@@ -78,14 +165,23 @@
 	</div>
 	</c:if>
 </div>
-<div style="font-size: 30px; margin-left:30px;"><b>${item_name}</b></div>
-<hr>
-<c:forEach var="list" items="${mango}">
-<div style="float: left; margin-right: 10px">
- 	<div><a href="itemexplain?item_seq=${list.item_seq}&com_id=${list.com_id}"><img src="${list.uploadfile}" width="290px" height="290px"></a></div>
-	<div><a href="itemexplain?item_seq=${list.item_seq}&com_id=${list.com_id}" id="b">${list.item_name}</a></div>
-	<div id="c">${list.item_price}</div>
-</div>
-</c:forEach>
+<header class="" style="background-color: #9ACD32; height: 120px;">
+	<a href="home"><img src="resources/image/logoW.png" style="width:210px; height:110px; float: left; margin: 5px 0px 0px 50px;"></a>
+	<div id="search">
+		<input type="text" placeholder="검색어 입력">
+		<button>검색</button>
+	</div>
+</header>
+<table>
+	<tr height="30" align="center">
+		<th>판매가</th><th>수량</th><th>구매가</th>
+	</tr>
+	<c:forEach var="list" items="${banana}">
+	<tr height="30" width="70%" align="center">
+		<td>${list.cart_count}</td>
+		<td><a href="cartdelete?user_id=${list.user_id}" onclick="return inCheck()" id="a">[삭제]</a></td>
+	</tr>
+	</c:forEach>
+</table>
 </body>
 </html>

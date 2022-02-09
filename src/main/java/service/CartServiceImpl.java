@@ -15,8 +15,8 @@ public class CartServiceImpl implements CartService {
 	CartMapper dao;
 
 	@Override
-	public List<CartVO> selectList() {
-		return dao.selectList();
+	public List<CartVO> selectList(CartVO vo) {
+		return dao.selectList(vo);
 	}
 
 	@Override

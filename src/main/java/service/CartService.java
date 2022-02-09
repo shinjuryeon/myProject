@@ -6,7 +6,7 @@ import vo.CartVO;
 
 public interface CartService {
 	
-	List<CartVO> selectList();
+	List<CartVO> selectList(CartVO vo);
 	
 	int insert(CartVO vo);
 	
