@@ -8,6 +8,10 @@ public interface CartMapper {
 	
 	List<CartVO> selectList(CartVO vo);
 	
+	List<CartVO> selectOne(CartVO vo);
+	
+	int selectSeqCount(CartVO vo);
+	
 	int insert(CartVO vo);
 	
 	int update(CartVO vo);

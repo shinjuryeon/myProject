@@ -127,7 +127,7 @@
 	<div style="margin: 17px 100px;">
 		<span class="top" style="margin-right:0px; color: black;">${loginName}</span><span class="top">님 반갑습니다!</span>
 	  	<span id="top"><a class="top" href="userdetail?user_id=${loginID}">내정보보기</a></span>
-	  	<span id="top"><a class="top" href="cartlist">장바구니</a></span>
+	  	<span id="top"><a class="top" href="cartlist?user_id=${loginID}">장바구니</a></span>
 	  	<span id="top"><a class="top" href="orderlist">주문내역</a></span>
 	  	<span id="top"><a class="top" href="logout">로그아웃</a></span>
 	</div>

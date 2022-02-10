@@ -102,15 +102,7 @@
 		if (confirm("장바구니에 담으시겠습니까?")==false) {
 			alert('취소되었습니다');
 		 	return false;
-		} else {
-			if (${not empty loginID}) {
-				alert('장바구니에 담았습니다');
-				return true;
-			} else {
-				alert('로그인 후 이용해주세요');
-				return true;
-			}
-		}
+		} else return true;
 	}
 
 	function userloginf() {
@@ -165,7 +157,7 @@
 	<div style="margin: 17px 100px;">
 		<span class="top" style="margin-right:0px; color: black;">${loginName}</span><span class="top">님 반갑습니다!</span>
 	  	<span id="top"><a class="top" href="userdetail?user_id=${loginID}">내정보보기</a></span>
-	  	<span id="top"><a class="top" href="cartlist">장바구니</a></span>
+	  	<span id="top"><a class="top" href="cartlist?user_id=${loginID}">장바구니</a></span>
 	  	<span id="top"><a class="top" href="orderlist">주문내역</a></span>
 	  	<span id="top"><a class="top" href="logout">로그아웃</a></span>
 	</div>
@@ -210,9 +202,9 @@
 			<span id="price">${cherry.item_price}</span><span id="price2">원</span>
 		</div>
 		<hr>
-		<form action="cartinsert" method="post">
+		<form action="cartinsert" method="get">
 			<input type="hidden" name="item_seq" value="${cherry.item_seq}">
-			<%-- <input type="hidden" name="user_id" value="${loginID}"> --%>
+			<input type="hidden" name="user_id" value="${loginID}">
 			<div style="font-size: 20px; display:flex; margin-left: 10px;">
 				<a href="javascript:void(0);" onclick='count("minus")' style="text-decoration: none;"><span id="inven">-</span></a>
 				<div id="inven"><input id="cart_count" name="cart_count" value="1" readonly="readonly"></div>

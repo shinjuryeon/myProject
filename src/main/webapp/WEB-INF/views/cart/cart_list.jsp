@@ -111,17 +111,12 @@
 	self.close();
 	
 	function inCheck() {	
-		var deleteCheck = true;
-		
-		if (deleteCheck) {
-			if (confirm("정말 삭제 하십니까 ?")==false) {
-				alert('삭제 취소되었습니다');
-			 	return false;
-			}else {
-				alert('삭제 성공했습니다');
-				return true;
-			}
-		} else return false; 
+		if (confirm("정말 삭제 하십니까 ?")==false) {
+			alert('취소되었습니다');
+		 	return false;
+		}else {
+			return true;
+		}
 	} //inCheck
 	
 	opener.location.reload();
@@ -172,15 +167,20 @@
 		<button>검색</button>
 	</div>
 </header>
-<table>
+<table width="70%">
 	<tr height="30" align="center">
-		<th>판매가</th><th>수량</th><th>구매가</th>
+		<th colspan="2">상품현황정보</th><th>판매가</th><th>수량</th><th>구매가</th>
 	</tr>
 	<c:forEach var="list" items="${banana}">
-	<tr height="30" width="70%" align="center">
-		<td>${list.cart_count}</td>
-		<td><a href="cartdelete?user_id=${list.user_id}" onclick="return inCheck()" id="a">[삭제]</a></td>
+	<c:forEach var="list2" items="${apple}">
+	<tr height="30" align="center">
+		<td><img src="${list.uploadfile}" style="width: 60px; height: 80px;"></td><td>${list.item_name}</td>
+		<td>${list.item_price}</td>
+		<td>${list2.cart_count}</td>
+		<td> ${list.item_price*list2.cart_count}</td>
+		<td><a href="cartdelete?cart_seq=${list2.cart_seq}&user_id=${loginID}" onclick="return inCheck()" id="a">[삭제]</a></td>
 	</tr>
+	</c:forEach>
 	</c:forEach>
 </table>
 </body>

@@ -18,6 +18,16 @@ public class CartServiceImpl implements CartService {
 	public List<CartVO> selectList(CartVO vo) {
 		return dao.selectList(vo);
 	}
+	
+	@Override
+	public List<CartVO> selectOne(CartVO vo) {
+		return dao.selectOne(vo);
+	}
+	
+	@Override
+	public int selectSeqCount(CartVO vo) {
+		return dao.selectSeqCount(vo);
+	}
 
 	@Override
 	public int insert(CartVO vo) {

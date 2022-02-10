@@ -7,6 +7,15 @@
 		select * from cart where user_id=#{user_id, jdbcType=VARCHAR} order by cart_seq desc
 	</select>
 
+	<select id="selectOne" resultType="vo.Item_infoVO">
+		SELECT item_info.* FROM item_info right JOIN cart ON item_info.item_seq = cart.item_seq
+		order by cart.cart_seq desc
+ 	</select>
+ 	
+ 	<select id="selectSeqCount" resultType="int">
+ 		SELECT count(*) FROM cart where cart.item_seq = #{item_seq}
+ 	</select>
+
 	<insert id="insert" parameterType="vo.CartVO">
 		<selectKey keyProperty="cart_seq" resultType="int" order="BEFORE">
 			select nvl(max(cart_seq),0)+1 from cart
@@ -16,7 +25,8 @@
 	
 	<update id="update">
 		update cart set
-			cart_count = #{cart_count} where cart_seq = #{cart_seq}
+			cart_count = cart_count + #{cart_count} 
+			where item_seq = #{item_seq} and user_id = #{user_id}
 	</update>
 	
 	<delete id="delete">
