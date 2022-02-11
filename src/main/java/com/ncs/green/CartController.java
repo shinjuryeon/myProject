@@ -1,7 +1,6 @@
 package com.ncs.green;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import service.CartService;
 import vo.CartVO;
-import vo.Item_infoVO;
 
 @Controller
 public class CartController {
@@ -26,8 +24,10 @@ public class CartController {
 	public ModelAndView cartinsert(HttpServletRequest request, ModelAndView mv, CartVO vo, RedirectAttributes rttr)
 							throws IOException {
 		
+		String uri = "redirect:home";
+		
 		if (vo.getUser_id() == null || vo.getUser_id().length()<1) { 
-			rttr.addFlashAttribute("message", "** 로그인 후 이용하세요! **");
+			rttr.addFlashAttribute("message", "** 구매자 로그인 후 이용하세요! **");
 		} else {
 			vo.setUser_id(request.getParameter("user_id")); //db로 먼저 넘어가서 item_seq가 동일한게 있는지 t, f 확인 후, update/insert 진행
 			
@@ -44,9 +44,7 @@ public class CartController {
 					rttr.addFlashAttribute("message", "** 다시 시도해주세요 **");
 				}
 			}
-		}
-		
-		String uri = "redirect:home"; 
+		} 
 		
 		mv.setViewName(uri);
 		return mv;
@@ -54,17 +52,12 @@ public class CartController {
 	
 	@RequestMapping(value="/cartlist")
 	public ModelAndView cartlist(HttpServletRequest request, ModelAndView mv, CartVO vo) {
-		List<CartVO> list = new ArrayList<CartVO>();
-		List<CartVO> list2 = new ArrayList<CartVO>();
-		
-		list = service.selectOne(vo);
 		
 		vo.setUser_id(request.getParameter("user_id"));
-		list2 = service.selectList(vo);
-		
-		if (list != null && list2 != null) {
+		List<CartVO> list = service.selectOne(vo);
+						
+		if (list != null && list.size()>0) {
 			mv.addObject("banana", list);
-			mv.addObject("apple", list2);
 		} else {
 			mv.addObject("message", "** 출력할 자료가 없습니다 **");
 		}
@@ -87,6 +80,34 @@ public class CartController {
 		
 		mv.setViewName(uri);
 		return mv;
-	}
+	} //cartdelete
+	
+	@RequestMapping(value="/cartupdatef")
+	public ModelAndView cartupdatef(HttpServletRequest request, ModelAndView mv, CartVO vo) {
+		int a = Integer.parseInt(request.getParameter("item_seq"));
+		mv.addObject("item_seq", a);
+		mv.setViewName("cart/cart_updateForm");
+		return mv;
+	} //cartupdatef
+	
+	@RequestMapping(value="/cartupdate")
+	public ModelAndView cartupdate(HttpServletRequest request, ModelAndView mv, CartVO vo, RedirectAttributes rttr) {
+		
+		vo.setUser_id(request.getParameter("user_id"));
+		vo.setItem_seq(Integer.parseInt(request.getParameter("item_seq")));
+		
+		String uri = null;
+		
+		if (service.updatepm(vo) > 0) {
+			rttr.addFlashAttribute("message", "** 수정에 성공했습니다! **");
+			uri = "redirect:cartlist?user_id="+vo.getUser_id();
+		} else {
+			mv.addObject("message", "** 수정에 실패했습니다! **");
+			uri = "cartlist?user_id="+vo.getUser_id();
+		}
+		
+		mv.setViewName(uri);
+		return mv;
+	} //cartupdate
 
 }

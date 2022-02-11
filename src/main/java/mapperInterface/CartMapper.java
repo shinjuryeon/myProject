@@ -16,6 +16,8 @@ public interface CartMapper {
 	
 	int update(CartVO vo);
 	
+	int updatepm(CartVO vo);
+	
 	int delete(CartVO vo);
 
 }

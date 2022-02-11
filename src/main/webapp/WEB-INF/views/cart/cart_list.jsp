@@ -50,54 +50,27 @@
     	float: right;
     	background-color: #222222;
     }
-    #comid {
-    	font-size: 15px;
-    	line-height: 35px;
-    	color: #585858;
-    }
-    #name {
-        font-size: 28px;
-    	line-height: 35px;
-    	color: #222222;
-    	letter-spacing: -0.5px;
-   		word-wrap: break-word;
-    	word-break: break-all;
-    }
-    #price {
-    	font-size: 45px;
-    	color: #222222;
-    	vertical-align: middle;
-    }
-    #price2 {
-    	font-size: 25px;
-    	color: #222222;
-    	vertical-align: middle;
-    	display: inline-block;
-   		margin: 4px 0 0 0;
-    }
-    #inven {
-    	margin-right: 10px;
-    	width: 30px;
-    	color: #222222;
-    }
-    #cart {
-    	background-color: #222222;
-    }
-    #buy {
-    	background-color: #EA4F33;
-    }
-    .submit {
-    	color: white;
-    }
+	table {
+	  width: 100%;
+	  border-top: 1px solid lightgray;
+	  border-collapse: collapse;
+	}
+	th, td {
+	  border-bottom: 1px solid lightgray;
+	  padding: 10px;
+	}
+	td > form > a, td > a {
+		text-decoration: none;
+		color: #A6A6A6;
+	}
 </style>
 <script>
-	$(function() {
+ 	$(function() {
 	    var responseMessage = "<c:out value="${message}" />";
 	    if(responseMessage != "") {
 	        alert(responseMessage);
 	    }
-	})
-	
+	}) 
 
 	function userloginf() {
 		var url = "/green/userloginf";
@@ -110,14 +83,23 @@
  	opener.document.location.reload();
 	self.close();
 	
-	function inCheck() {	
+	function deCheck() {	
 		if (confirm("정말 삭제 하십니까 ?")==false) {
 			alert('취소되었습니다');
 		 	return false;
 		}else {
 			return true;
 		}
-	} //inCheck
+	} //deCheck
+	
+	function orderCheck() {	
+		if (confirm("결제페이지로 넘어갈까요 ?")==false) {
+			alert('취소되었습니다');
+		 	return false;
+		}else {
+			return true;
+		}
+	} //orderCheck
 	
 	opener.location.reload();
 	
@@ -135,7 +117,7 @@
 	<div style="margin: 17px 100px;">
 		<span class="top" style="margin-right:0px; color: black;">${loginName}</span><span class="top">님 반갑습니다!</span>
 	  	<span id="top"><a class="top" href="userdetail?user_id=${loginID}">내정보보기</a></span>
-	  	<span id="top"><a class="top" href="cartlist">장바구니</a></span>
+	  	<span id="top"><a class="top" href="cartlist?user_id=${loginID}">장바구니</a></span>
 	  	<span id="top"><a class="top" href="orderlist">주문내역</a></span>
 	  	<span id="top"><a class="top" href="logout">로그아웃</a></span>
 	</div>
@@ -167,21 +149,30 @@
 		<button>검색</button>
 	</div>
 </header>
-<table width="70%">
+<form action="orderinsert" method="get">
+<table>
 	<tr height="30" align="center">
-		<th colspan="2">상품현황정보</th><th>판매가</th><th>수량</th><th>구매가</th>
+		<th colspan="2">상품현황정보</th><th>판매가</th><th>수량</th><th>구매가</th><th></th>
 	</tr>
 	<c:forEach var="list" items="${banana}">
-	<c:forEach var="list2" items="${apple}">
-	<tr height="30" align="center">
-		<td><img src="${list.uploadfile}" style="width: 60px; height: 80px;"></td><td>${list.item_name}</td>
-		<td>${list.item_price}</td>
-		<td>${list2.cart_count}</td>
-		<td> ${list.item_price*list2.cart_count}</td>
-		<td><a href="cartdelete?cart_seq=${list2.cart_seq}&user_id=${loginID}" onclick="return inCheck()" id="a">[삭제]</a></td>
+	<tr align="center">
+		<td><img src="${list.uploadfile}" style="width: 60px; height: 80px;"></td>
+		<td>${list.item_name}</td>
+		<td>${list.item_price} 원</td>
+		<td style="width: 16%;">
+		<input id="cart_count${list.cart_seq}" name="cart_count" value="${list.cart_count}" readonly="readonly">
+		<a href="cartupdatef?item_seq=${list.item_seq}&user_id=${loginID}" id="a">[수정]</a>
+		</td>
+		<td >${list.item_price*list.cart_count} 원</td>
+		<td style="width: 6%;">
+		<a href="cartdelete?cart_seq=${list.cart_seq}&user_id=${loginID}" onclick="return deCheck()" id="a">[삭제]</a></td>
 	</tr>
 	</c:forEach>
-	</c:forEach>
+	<tr>
+		<td></td><td></td><td>총금액<span></span></td>
+	</tr>
 </table>
+<input type="submit" value="결제하기" id="order" class="submit" onclick="return orderCheck()" style="background-color: #EA4F33; color:white;">
+</form>
 </body>
 </html>

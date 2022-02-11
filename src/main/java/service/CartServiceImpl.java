@@ -23,7 +23,7 @@ public class CartServiceImpl implements CartService {
 	public List<CartVO> selectOne(CartVO vo) {
 		return dao.selectOne(vo);
 	}
-	
+
 	@Override
 	public int selectSeqCount(CartVO vo) {
 		return dao.selectSeqCount(vo);
@@ -37,6 +37,11 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public int update(CartVO vo) {
 		return dao.update(vo);
+	}
+	
+	@Override
+	public int updatepm(CartVO vo) {
+		return dao.updatepm(vo);
 	}
 
 	@Override

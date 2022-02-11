@@ -7,9 +7,10 @@
 		select * from cart where user_id=#{user_id, jdbcType=VARCHAR} order by cart_seq desc
 	</select>
 
-	<select id="selectOne" resultType="vo.Item_infoVO">
-		SELECT item_info.* FROM item_info right JOIN cart ON item_info.item_seq = cart.item_seq
-		order by cart.cart_seq desc
+	<select id="selectOne" resultType="vo.CartVO">
+		SELECT i.item_name, i.item_price, i.inventory, i.uploadfile, c.cart_seq, c.cart_count, c.item_seq 
+			FROM item_info i right JOIN cart c ON i.item_seq = c.item_seq 
+			where c.user_id=#{user_id} order by c.cart_seq desc
  	</select>
  	
  	<select id="selectSeqCount" resultType="int">
@@ -26,6 +27,12 @@
 	<update id="update">
 		update cart set
 			cart_count = cart_count + #{cart_count} 
+			where item_seq = #{item_seq} and user_id = #{user_id}
+	</update>
+	
+	<update id="updatepm">
+		update cart set
+			cart_count = #{cart_count} 
 			where item_seq = #{item_seq} and user_id = #{user_id}
 	</update>
 	

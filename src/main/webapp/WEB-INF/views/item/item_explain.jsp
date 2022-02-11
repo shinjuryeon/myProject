@@ -218,7 +218,7 @@
 			<br><br><br>
 			<hr>
 			<input type="submit" value="장바구니" id="cart" class="submit" onclick="return cartCheck()">&nbsp;&nbsp;
-			<input type="submit" value="바로구매" id="buy" class="submit">
+			<input type="submit" value="바로구매" id="buy" class="submit" disabled="disabled">
 		</form>
 	</div>
 </div>

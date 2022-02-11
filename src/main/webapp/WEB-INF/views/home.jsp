@@ -88,14 +88,9 @@
 	li:hover {
 		font-size: 15px;
 	}
-/* 	캐러셀 카테고리 글씨스타일
-	div li {
-		color: #000000;
-		text-decoration: none;
-	} */
 </style>
 <script>
-	$(function() {
+ 	$(function() {
 	    var responseMessage = "<c:out value="${message}" />";
 	    if(responseMessage != "") {
 	        alert(responseMessage);
@@ -177,14 +172,6 @@
 	     <a href=""><img id="ad" src="resources/image/ccc.gif" class="d-block w-100"></a>
 	   </div>
 	 </div>
-	 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-	   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	   <span class="visually-hidden">Previous</span>
-	 </button>
-	 <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-	   <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	   <span class="visually-hidden">Next</span>
-	 </button>
 </div>
 <div style="position: absolute; z-index: 1000; height: 720px; width: 200px; margin-left: 55px; background-color: #F4F4F4; opacity: 0.80;">
 	<ul style="margin-top:13px">
@@ -220,6 +207,6 @@
 		<li><a href="itemcodelist?category_code=28">문구/취미/도서</a></li>
 	</ul>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </main>
 </html>
